@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>DualBrowser</RootNamespace>
+    <AssemblyName>DualBrowser.Common</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="GPS.SimpleMVC" />
+    <Using Include="GPS.SimpleMVC.Controllers" />
+    <Using Include="GPS.SimpleMVC.Views" />
+    <Using Include="System.Windows" />
+    <Using Include="System.Windows.Controls" />
+    <Using Include="CommunityToolkit.Mvvm" />
+    <Using Include="CommunityToolkit.Mvvm.Input" />
+    <Using Include="CommunityToolkit.Mvvm.ComponentModel" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <PackageReference Include="GPS.SimpleMVC" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1518.46" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+
+  </ItemGroup>
+
+</Project>

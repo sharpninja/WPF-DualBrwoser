@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "SfDualBrowserWpf": {
+      "commandName": "Project"
+    }
+  }
+}
