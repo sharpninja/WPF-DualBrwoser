@@ -107,18 +107,18 @@ public sealed partial class DualBrowserController : SimpleControllerBase
         object? sender,
         CoreWebView2NewWindowRequestedEventArgs e)
     {
-        if (sender is CoreWebView2 core)
+        if (sender is not CoreWebView2 core) return;
+
+        switch (e.Name)
         {
-            if (e.Name is "_parent" or "primary" or "_primary")
-            {
+            case "_parent" or "primary" or "_primary" or "_blank":
                 _viewModel.Primary.Navigate(e.Uri);
                 e.Handled = true;
-            }
-            else
-            {
+                break;
+            default:
                 core.Navigate(e.Uri);
                 e.Handled = true;
-            }
+                break;
         }
     }
 
@@ -206,7 +206,7 @@ public sealed partial class DualBrowserController : SimpleControllerBase
         {
 
             PrimaryWebView.CoreWebView2.StatusBarTextChanged += CoreWebView2_StatusBarTextChanged;
-            PrimaryWebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested; ;
+            PrimaryWebView.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
 
             _primaryMre.Set();
         }
@@ -238,15 +238,7 @@ public sealed partial class DualBrowserController : SimpleControllerBase
 
     private void CoreWebView2_HistoryChanged(object? sender, object e)
     {
-        if(sender is CoreWebView2 core)
-        {
-            WebViewState state = core.Equals(_viewModel.Primary.WebView.CoreWebView2)
-                ? _viewModel.Primary : _viewModel.Secondary;
-
-
-
-            state.History.Add(new())
-        }
+        if (sender is not CoreWebView2 core) return;
     }
 
     private void NotifyButtons()

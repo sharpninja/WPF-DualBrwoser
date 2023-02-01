@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-
+using System.Windows.Threading;
 using Microsoft.Web.WebView2.Core;
 
 using Newtonsoft.Json;
@@ -124,14 +124,15 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
             }
 
             url ??= "about:blank";
-            (bool, bool, bool) matrix = (
+            (bool, bool, bool, bool) matrix = (
                 url.StartsWith("http://", StringComparison.OrdinalIgnoreCase),
                 url.StartsWith("https://", StringComparison.OrdinalIgnoreCase),
-                url.StartsWith("about:", StringComparison.OrdinalIgnoreCase)
+                url.StartsWith("about:", StringComparison.OrdinalIgnoreCase),
+                url.StartsWith("edge://", StringComparison.OrdinalIgnoreCase)
                 );
             string uri = matrix switch
             {
-                (false, false, false) => $"https://{url}",
+                (false, false, false, false) => $"https://{url}",
                 _ => url,
             };
 
