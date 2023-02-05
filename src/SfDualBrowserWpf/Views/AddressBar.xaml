@@ -1,0 +1,51 @@
+﻿<UserControl
+    x:Class="SfDualBrowserWpf.AddressBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SfDualBrowserWpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    x:Name="Address"
+    mc:Ignorable="d">
+    <Border
+        Grid.Column="4"
+        Margin="4"
+        Padding="0"
+        HorizontalAlignment="Stretch"
+        BorderBrush="Silver"
+        BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <syncfusion:SfTextBoxExt
+                x:Name="AddressTextBox"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Left"
+                AutoCompleteMode="Suggest"
+                AutoCompleteSource="{Binding ElementName=Address, Path=State.History}"
+                BorderThickness="0"
+                GotFocus="SfTextBoxExt_GotFocus"
+                KeyUp="SfTextBoxExt_KeyUp"
+                Text="{Binding ElementName=Address, Path=State.Uri, Mode=TwoWay}" />
+            <syncfusion:ButtonAdv
+                x:Name="GoButton"
+                Grid.Column="1"
+                Command="{Binding ElementName=Address, Path=Commands.GoCommand}"
+                CommandParameter="{Binding ElementName=Address, Path=Position, Mode=OneWay}"
+                Label="">
+                <!--  Style="{StaticResource ButtonStyleKey}"  -->
+                <syncfusion:ButtonAdv.IconTemplate>
+                    <DataTemplate>
+                        <TextBlock Style="{StaticResource IconText}">&#xE724;</TextBlock>
+                    </DataTemplate>
+                </syncfusion:ButtonAdv.IconTemplate>
+            </syncfusion:ButtonAdv>
+        </Grid>
+    </Border>
+</UserControl>
