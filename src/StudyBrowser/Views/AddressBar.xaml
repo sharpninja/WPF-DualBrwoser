@@ -31,14 +31,13 @@
                 BorderThickness="0"
                 GotFocus="TextBox_GotFocus"
                 KeyUp="TextBox_KeyUp"
-                Text="{Binding ElementName=Address,
-                                    Path=State.Uri,
+                Text="{x:Bind State.Uri,
                                     Mode=TwoWay}" />
             <Button
                 x:Name="GoButton"
                 Grid.Column="1"
-                Command="{Binding ElementName=Address, Path=Commands.GoCommand}"
-                CommandParameter="{Binding ElementName=Address, Path=Position, Mode=OneWay}">
+                Command="{x:Bind Commands.GoCommand}"
+                CommandParameter="{x:Bind Position, Mode=OneWay}">
                 <!--  Style="{StaticResource ButtonStyleKey}"  -->
                 <FontIcon Glyph="&#xE724;" />
             </Button>

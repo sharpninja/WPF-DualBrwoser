@@ -16,21 +16,27 @@ public sealed partial class Commands
 
     public bool CanGoBack(string? side)
     {
+        if (_viewModel is null) return false;
+
         return side switch
         {
-            PRIMARY => _viewModel?.Primary?.CanGoBack ?? false,
-            SECONDARY => _viewModel?.Secondary?.CanGoBack ?? false,
+            PRIMARY => _viewModel.Primary.GetCanGoBack(),
+            SECONDARY => _viewModel.Secondary.GetCanGoBack(),
             _ => false
         };
     }
 
-    //[RelayCommand(CanExecute = nameof(CanGoBack), AllowConcurrentExecutions = false, IncludeCancelCommand = true)]
-    private Task Back(string? side, CancellationToken cancellationToken)
+    private Task Back(string? side)
     {
+        if (_viewModel is null)
+        {
+            return Task.CompletedTask;
+        }
+
         switch (side)
         {
-            case PRIMARY: _viewModel?.Primary?.GoBack(); break;
-            case SECONDARY: _viewModel?.Secondary?.GoBack(); break;
+            case PRIMARY: _viewModel.Primary?.GoBack(); break;
+            case SECONDARY: _viewModel.Secondary?.GoBack(); break;
         };
         return Task.CompletedTask;
     }
@@ -43,21 +49,27 @@ public sealed partial class Commands
 
     public bool CanGoForward(string? side)
     {
+        if (_viewModel is null) return false;
+
         return side switch
         {
-            PRIMARY => _viewModel?.Primary?.CanGoForward ?? false,
-            SECONDARY => _viewModel?.Secondary?.CanGoForward ?? false,
+            PRIMARY => _viewModel.Primary.GetCanGoForward(),
+            SECONDARY => _viewModel.Secondary.GetCanGoForward(),
             _ => false
         };
     }
 
-    //[RelayCommand(CanExecute = nameof(CanGoForward), AllowConcurrentExecutions = false, IncludeCancelCommand = true)]
     private Task Forward(string? side, CancellationToken cancellationToken)
     {
+        if (_viewModel is null)
+        {
+            return Task.CompletedTask;
+        }
+
         switch (side)
         {
-            case PRIMARY: _viewModel?.Primary?.GoForward(); break;
-            case SECONDARY: _viewModel?.Secondary?.GoForward(); break;
+            case PRIMARY: _viewModel.Primary.GoForward(); break;
+            case SECONDARY: _viewModel.Secondary.GoForward(); break;
         };
         return Task.CompletedTask;
     }

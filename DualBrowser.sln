@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudyBrowser", "src\StudyBr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DosVentanas.Windows", "src\DosVentanas\DosVentanas.Windows\DosVentanas.Windows.csproj", "{4231929A-6D48-4936-BDED-50E2F4346176}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SfDualBrowserWpf", "src\SfDualBrowserWpf\SfDualBrowserWpf.csproj", "{7153930A-5E4C-4D2D-B289-07F02D7A7594}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,22 @@ Global
 		{4231929A-6D48-4936-BDED-50E2F4346176}.Release|x86.ActiveCfg = Release|x86
 		{4231929A-6D48-4936-BDED-50E2F4346176}.Release|x86.Build.0 = Release|x86
 		{4231929A-6D48-4936-BDED-50E2F4346176}.Release|x86.Deploy.0 = Release|x86
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|arm64.Build.0 = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|x64.Build.0 = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Debug|x86.Build.0 = Debug|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|arm64.ActiveCfg = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|arm64.Build.0 = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|x64.ActiveCfg = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|x64.Build.0 = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|x86.ActiveCfg = Release|Any CPU
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,6 +130,7 @@ Global
 		{61D19527-59BC-42EF-8A46-2A54439EC290} = {4BB73CAE-7A58-4391-8497-E30C7965DDA0}
 		{B6359D7A-3200-434D-B3C5-562034D1F083} = {61D19527-59BC-42EF-8A46-2A54439EC290}
 		{4231929A-6D48-4936-BDED-50E2F4346176} = {F3E983EE-2A27-4BEE-80F2-EE9FFBF1503E}
+		{7153930A-5E4C-4D2D-B289-07F02D7A7594} = {E3CC6AEA-10EB-4E0B-A1EB-03005C0CCAE3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D821F997-E260-439A-906B-F91E23F7FB34}

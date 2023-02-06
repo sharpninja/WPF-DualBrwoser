@@ -90,7 +90,7 @@ public sealed partial class SideBar : UserControl
 
             State!.History.CollectionChanged += (o, e) =>
             {
-                Debugger.Break();
+                //Debugger.Break();
                 SetHistory();
             };
         };

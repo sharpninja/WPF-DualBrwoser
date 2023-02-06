@@ -4,7 +4,9 @@ using DualBrowser.Views;
 
 using Microsoft.UI.Dispatching;
 
-namespace DualBrowser;
+using DispatcherQueueHandler = Microsoft.UI.Dispatching.DispatcherQueueHandler;
+
+namespace DualBrowser.ViewModels;
 
 public partial class WebViewState : ObservableObject, IWebViewStateView
 {
@@ -18,6 +20,8 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
     private CoreWebView2WebErrorStatus _error;
     private string _Status = "";
     private Visibility _sideBarVisibility = Visibility.Collapsed;
+
+    private DispatcherQueue DispatcherQueue => ((IDispatcher)Application.Current).DispatcherQueue;
 
     public WebViewState(
         MainViewModel viewModel,
@@ -156,25 +160,60 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
         };
     }
 
-    private bool GetCanGoBack() => WebView.CanGoBack;
-    private MethodInfo CanGoBackMethodInfo => GetType().GetMethod(
-        nameof(GetCanGoBack), BindingFlags.NonPublic);
-    private DispatcherQueueHandler CanGoBackHandler => (DispatcherQueueHandler)DispatcherQueueHandler.CreateDelegate(
-        typeof(DispatcherQueueHandler), CanGoBackMethodInfo);
+    public bool GetCanGoBack()
+    {
+        if (((IDispatcher)Application.Current).DispatcherQueue is null ||
+            WebView.CoreWebView2 is null)
+        {
+            return false;
+        }
 
-    private bool GetCanGoForward() => WebView.CanGoForward;
-    private MethodInfo CanGoForwardMethodInfo => GetType().GetMethod(nameof(GetCanGoForward), BindingFlags.NonPublic);
-    private DispatcherQueueHandler CanGoForwardHandler => (DispatcherQueueHandler)DispatcherQueueHandler.CreateDelegate(
-        typeof(DispatcherQueueHandler), CanGoForwardMethodInfo);
+        ManualResetEvent mre = new(false);
+        ((IDispatcher)Application.Current).DispatcherQueue!.TryEnqueue(
+            DispatcherQueuePriority.High,
+            () =>
+        {
+            CanGoBack = WebView.CanGoBack;
+            mre.Set();
+        });
+
+        if (mre.WaitOne(TimeSpan.FromSeconds(10)))
+        {
+            return CanGoBack;
+        }
+
+        return false;
+    }
+
+    public bool GetCanGoForward()
+    {
+        if (((IDispatcher)Application.Current).DispatcherQueue is null ||
+            WebView.CoreWebView2 is null)
+        {
+            return false;
+        }
+
+        ManualResetEvent mre = new(false);
+        ((IDispatcher)Application.Current).DispatcherQueue!.TryEnqueue(
+            DispatcherQueuePriority.High,
+            () =>
+            {
+                CanGoForward = WebView.CanGoForward;
+                mre.Set();
+            });
+
+        if (mre.WaitOne(TimeSpan.FromSeconds(10)))
+        {
+            return CanGoForward;
+        }
+
+        return false;
+    }
 
     [JsonIgnore]
-    public bool CanGoBack => Window.Current.DispatcherQueue.TryEnqueue(
-        DispatcherQueuePriority.Normal,
-        CanGoBackHandler);
+    public bool CanGoBack { get; set; }
     [JsonIgnore]
-    public bool CanGoForward => Window.Current.DispatcherQueue.TryEnqueue(
-        DispatcherQueuePriority.Normal,
-        CanGoForwardHandler);
+    public bool CanGoForward { get; set; }
 
     [JsonIgnore]
     public Border Border => _border;

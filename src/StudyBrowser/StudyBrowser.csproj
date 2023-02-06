@@ -95,10 +95,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1518.46" />
-
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <WebView2UseWinRT>False</WebView2UseWinRT>
     <WebView2LoaderPreference>Dynamic</WebView2LoaderPreference>
@@ -114,6 +110,15 @@
   -->
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PRIResource Remove="Strings\en\Resources.resw" />

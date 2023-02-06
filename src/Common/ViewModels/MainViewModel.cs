@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace DualBrowser;
+namespace DualBrowser.ViewModels;
 
 public sealed partial class MainViewModel : ObservableObject
 {
@@ -78,7 +78,7 @@ public sealed partial class MainViewModel : ObservableObject
 
     public string ModeText => $"{Mode}";
 
-    public static Modes[] ModeList => Enum.GetValues<Modes>();
+    public Modes[] ModeList => Enum.GetValues<Modes>();
 
     private readonly string[] SPLIT_LIST = new string[] { "70:30", "50:50", "30:70" };
 

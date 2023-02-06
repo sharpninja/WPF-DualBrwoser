@@ -1,7 +1,8 @@
 {
   "profiles": {
     "StudyBrowser (Package)": {
-      "commandName": "MsixPackage"
+      "commandName": "MsixPackage",
+      "nativeDebugging": false
     },
     "StudyBrowser (Unpackaged)": {
       "commandName": "Project"

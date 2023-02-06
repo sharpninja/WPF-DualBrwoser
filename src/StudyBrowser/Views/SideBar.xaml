@@ -21,13 +21,13 @@
                                 Margin="4,4,4,10"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Top">
-                                <Run FontSize="20" Text="{Binding Hostname, Mode=OneTime}" />
+                                <Run FontSize="20" Text="{x:Bind Hostname, Mode=OneTime}" />
                                 <LineBreak />
-                                <Run FontSize="10" Text="{Binding Timestamp, Mode=OneTime}" />
+                                <Run FontSize="10" Text="{x:Bind Timestamp, Mode=OneTime}" />
                                 <Run FontSize="10" Text=" ‖ " />
-                                <Run FontSize="10" Text="{Binding StatusCode, Mode=OneTime}" />
+                                <Run FontSize="10" Text="{x:Bind StatusCode, Mode=OneTime}" />
                                 <Run FontSize="10" Text=" ‖ " />
-                                <Run FontSize="10" Text="{Binding Status, Mode=OneTime}" />
+                                <Run FontSize="10" Text="{x:Bind Status, Mode=OneTime}" />
                             </TextBlock>
                         </DataTemplate>
                     </ListView.ItemTemplate>

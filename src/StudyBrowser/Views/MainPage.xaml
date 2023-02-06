@@ -9,49 +9,65 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:StudyBrowser.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="Main"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
-    <controls:DockPanel LastChildFill="True">
+    <controls:DockPanel
+        LastChildFill="True">
         <local:SideBar
             x:Name="PrimarySideBar"
             Width="300"
             controls:DockPanel.Dock="Left"
-            DataContext="{Binding ElementName=Main, Path=ViewModel}"
             Position="Primary"
-            ViewModel="{Binding}"
-            Visibility="{Binding Primary.SideBarVisibility, Mode=OneWay}" />
+            ViewModel="{x:Bind ViewModel}"
+            Visibility="{x:Bind ViewModel.Primary.SideBarVisibility, Mode=OneWay}" />
         <local:SideBar
             x:Name="SecondarySideBar"
             Width="300"
             controls:DockPanel.Dock="Right"
-            DataContext="{Binding ElementName=Main, Path=ViewModel}"
             Position="Secondary"
-            ViewModel="{Binding}"
-            Visibility="{Binding Secondary.SideBarVisibility, Mode=OneWay}" />
-        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            ViewModel="{x:Bind ViewModel}"
+            Visibility="{x:Bind ViewModel.Secondary.SideBarVisibility, Mode=OneWay}" />
+        <Border
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <Grid
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition
+                        Height="Auto" />
+                    <RowDefinition
+                        Height="*" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition x:Name="LeftWidth" Width="{Binding ElementName=Main, Path=ViewModel.SplitLeft}" />
-                    <ColumnDefinition x:Name="RightWidth" Width="{Binding ElementName=Main, Path=ViewModel.SplitRight}" />
+                    <ColumnDefinition
+                        x:Name="LeftWidth"
+                        Width="{x:Bind ViewModel.SplitLeft, Mode=OneWay}" />
+                    <ColumnDefinition
+                        x:Name="RightWidth"
+                        Width="{x:Bind ViewModel.SplitRight, Mode=OneWay}" />
                 </Grid.ColumnDefinitions>
 
                 <Grid
                     Grid.Row="0"
                     Grid.Column="0"
-                    Grid.ColumnSpan="{Binding ElementName=Main, Path=ViewModel.ColumnSpan, Mode=OneWay}">
+                    Grid.ColumnSpan="{x:Bind ViewModel.ColumnSpan, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                        <ColumnDefinition
+                            Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition x:Name="PrimaryMenuRow" Height="Auto" />
-                        <RowDefinition x:Name="PrimaryToolbarRow" Height="Auto" />
+                        <RowDefinition
+                            x:Name="PrimaryMenuRow"
+                            Height="Auto" />
+                        <RowDefinition
+                            x:Name="PrimaryToolbarRow"
+                            Height="Auto" />
                     </Grid.RowDefinitions>
                     <local:BrowserMenu
                         x:Name="PrimaryBrowserMenu"
@@ -60,102 +76,74 @@
                         Grid.ColumnSpan="2"
                         Margin="0,4,0,0"
                         Position="Primary"
-                        ViewModel="{Binding ElementName=Main, Path=ViewModel}" />
+                        ViewModel="{x:Bind ViewModel}" />
                     <Grid
                         x:Name="SplitsToolBar"
                         Grid.Row="1"
                         Grid.Column="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition
+                                Width="Auto" />
+                            <ColumnDefinition
+                                Width="Auto" />
+                            <ColumnDefinition
+                                Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <ComboBox
                             Grid.Column="0"
                             Margin="4"
-                            ItemsSource="{Binding ElementName=Main, Path=ViewModel.SplitList, Mode=OneWay}"
-                            SelectedItem="{Binding ElementName=Main, Path=ViewModel.Split, Mode=TwoWay}" />
-                        <!--<Button
-                        Grid.Column="0"
-                        Command="{Binding ElementName=Main, Path=Commands.SetSplitCommand}"
-                        CommandParameter="5"
-                        IconWidth="0"
-                        Label="50:50"
-                        Style="{StaticResource SplitButton}">
-                        <TextBlock Style="{StaticResource LabelText}">50:50</TextBlock>
-                    </Button>
-                    <Button
-                        Grid.Column="1"
-                        Command="{Binding ElementName=Main, Path=Commands.SetSplitCommand}"
-                        CommandParameter="7"
-                        IconWidth="0"
-                        Label="70:30"
-                        Style="{StaticResource SplitButton}">
-                        <TextBlock Style="{StaticResource LabelText}">70:30</TextBlock>
-                    </Button>
-                    <Button
-                        Grid.Column="2"
-                        Command="{Binding ElementName=Main, Path=Commands.SetSplitCommand}"
-                        CommandParameter="3"
-                        IconWidth="0"
-                        Label="30:70"
-                        Style="{StaticResource SplitButton}">
-                        <TextBlock Style="{StaticResource LabelText}">30:70</TextBlock>
-                    </Button>-->
+                            ItemsSource="{x:Bind ViewModel.SplitList, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.Split, Mode=TwoWay}" />
                     </Grid>
                     <Grid
                         x:Name="LeftToolBar"
                         Grid.Row="1"
                         Grid.Column="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition
+                                Width="Auto" />
+                            <ColumnDefinition
+                                Width="Auto" />
+                            <ColumnDefinition
+                                Width="Auto" />
+                            <ColumnDefinition
+                                Width="Auto" />
+                            <ColumnDefinition
+                                Width="*" />
                         </Grid.ColumnDefinitions>
                         <ComboBox
                             Grid.Column="0"
                             Margin="4"
-                            ItemsSource="{Binding ModeList, Mode=OneWay}"
-                            SelectedItem="{Binding Mode, Mode=TwoWay}" />
+                            ItemsSource="{x:Bind ViewModel.ModeList, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.Mode, Mode=TwoWay}" />
                         <Button
                             x:Name="PrimaryBackButton"
                             Grid.Column="1"
-                            Command="{Binding ElementName=Main, Path=Commands.BackCommand}"
+                            Command="{x:Bind Commands.BackCommand}"
                             CommandParameter="Primary">
-                            <Button.Content>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource IconText}">&#xE830;</TextBlock>
-                                </DataTemplate>
-                            </Button.Content>
+                            <FontIcon
+                                Glyph="&#xE830;" />
                         </Button>
                         <Button
                             Grid.Column="2"
-                            Command="{Binding ElementName=Main, Path=Commands.ForwardCommand}"
+                            Command="{x:Bind Commands.ForwardCommand}"
                             CommandParameter="Primary">
                             <!--  Style="{StaticResource ButtonStyleKey}"  -->
-                            <Button.Content>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource IconText}">&#xEA47;</TextBlock>
-                                </DataTemplate>
-                            </Button.Content>
+                            <FontIcon
+                                Glyph="&#xEA47;" />
                         </Button>
                         <Button
                             Grid.Column="3"
-                            Command="{Binding ElementName=Main, Path=Commands.ReloadCommand}"
+                            Command="{x:Bind Commands.ReloadCommand}"
                             CommandParameter="Primary">
                             <!--  Style="{StaticResource ButtonStyleKey}"  -->
-                            <Button.Content>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource IconText}">&#xE72C;</TextBlock>
-                                </DataTemplate>
-                            </Button.Content>
+                            <FontIcon
+                                Glyph="&#xE72C;" />
                         </Button>
                         <local:AddressBar
                             Grid.Column="4"
                             Position="Primary"
-                            ViewModel="{Binding ElementName=Main, Path=ViewModel}" />
+                            ViewModel="{x:Bind ViewModel}" />
                     </Grid>
                 </Grid>
                 <Grid
@@ -164,16 +152,22 @@
                     Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Visibility="{Binding ElementName=Main, Path=ViewModel.SecondaryToolbarVisibility, Mode=OneWay}">
+                    Visibility="{x:Bind ViewModel.SecondaryToolbarVisibility, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                        <ColumnDefinition
+                            Width="Auto" />
+                        <ColumnDefinition
+                            Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="{Binding ElementName=PrimaryMenuRow, Path=ActualHeight, Mode=OneWay}" />
-                        <RowDefinition Height="{Binding ElementName=PrimaryToolbarRow, Path=ActualHeight, Mode=OneWay}" />
+                        <RowDefinition
+                            Height="{Binding ElementName=PrimaryMenuRow, Path=ActualHeight, Mode=OneWay}" />
+                        <RowDefinition
+                            Height="{Binding ElementName=PrimaryToolbarRow, Path=ActualHeight, Mode=OneWay}" />
                     </Grid.RowDefinitions>
                     <local:BrowserMenu
                         Grid.Row="0"
@@ -181,48 +175,39 @@
                         Grid.ColumnSpan="4"
                         Margin="0,4,0,0"
                         Position="Secondary"
-                        ViewModel="{Binding ElementName=Main, Path=ViewModel}" />
+                        ViewModel="{x:Bind ViewModel}" />
 
                     <Button
                         Grid.Row="1"
                         Grid.Column="0"
-                        Command="{Binding ElementName=Main, Path=Commands.BackCommand}"
+                        Command="{x:Bind Commands.BackCommand}"
                         CommandParameter="Secondary">
-                        <Button.Content>
-                            <DataTemplate>
-                                <TextBlock Style="{StaticResource IconText}">&#xE830;</TextBlock>
-                            </DataTemplate>
-                        </Button.Content>
+                        <FontIcon
+                            Glyph="&#xE830;" />
                     </Button>
                     <Button
                         Grid.Row="1"
                         Grid.Column="1"
-                        Command="{Binding ElementName=Main, Path=Commands.ForwardCommand}"
+                        Command="{x:Bind Commands.ForwardCommand}"
                         CommandParameter="Secondary">
                         <!--  Style="{StaticResource ButtonStyleKey}"  -->
-                        <Button.Content>
-                            <DataTemplate>
-                                <TextBlock Style="{StaticResource IconText}">&#xEA47;</TextBlock>
-                            </DataTemplate>
-                        </Button.Content>
+                        <FontIcon
+                            Glyph="&#xEA47;" />
                     </Button>
                     <Button
                         Grid.Row="1"
                         Grid.Column="2"
-                        Command="{Binding ElementName=Main, Path=Commands.ReloadCommand}"
+                        Command="{x:Bind Commands.ReloadCommand}"
                         CommandParameter="Secondary">
                         <!--  Style="{StaticResource ButtonStyleKey}"  -->
-                        <Button.Content>
-                            <DataTemplate>
-                                <TextBlock Style="{StaticResource IconText}">&#xE72C;</TextBlock>
-                            </DataTemplate>
-                        </Button.Content>
+                        <FontIcon
+                            Glyph="&#xE72C;" />
                     </Button>
                     <local:AddressBar
                         Grid.Row="1"
                         Grid.Column="3"
                         Position="Secondary"
-                        ViewModel="{Binding ElementName=Main, Path=ViewModel}" />
+                        ViewModel="{x:Bind ViewModel}" />
                 </Grid>
 
                 <Border
@@ -244,7 +229,7 @@
                     VerticalAlignment="Stretch"
                     BorderBrush="Black"
                     BorderThickness="1,0,0,0"
-                    Visibility="{Binding ElementName=Main, Path=ViewModel.SecondaryBrowserVisibility, Mode=OneWay}">
+                    Visibility="{x:Bind ViewModel.SecondaryBrowserVisibility, Mode=OneWay}">
                     <WebView2
                         x:Name="SecondaryWebView"
                         HorizontalAlignment="Stretch"

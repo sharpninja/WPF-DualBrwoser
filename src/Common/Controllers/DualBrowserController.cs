@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 
 using DualBrowser.Models;
+using DualBrowser.ViewModels;
 
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
@@ -53,10 +54,8 @@ public sealed partial class DualBrowserController : SimpleControllerBase
         PrimaryWebView.CoreWebView2Initialized += PrimaryWebView_CoreWebView2InitializationCompleted;
         SecondaryWebView.CoreWebView2Initialized += SecondaryWebView_CoreWebView2InitializationCompleted;
 
-        PrimaryWebView.EnsureCoreWebView2Async()
-            .AsTask().GetAwaiter().GetResult();
-        SecondaryWebView.EnsureCoreWebView2Async()
-            .AsTask().GetAwaiter().GetResult();
+        _ = PrimaryWebView.EnsureCoreWebView2Async();
+        _ = SecondaryWebView.EnsureCoreWebView2Async();
 
 
         Task.Run(async () =>
@@ -163,7 +162,7 @@ public sealed partial class DualBrowserController : SimpleControllerBase
             string? json;
             try
             {
-                json = reader.ReadToEnd();
+                json = await reader.ReadToEndAsync();
             }
             finally
             {
@@ -174,14 +173,20 @@ public sealed partial class DualBrowserController : SimpleControllerBase
             {
                 try
                 {
+                    while (ViewModel.Primary.WebView.Dispatcher is null)
+                    {
+                        await Task.Delay(100);
+                    }
+
                     await ViewModel.Primary.WebView.Dispatcher.TryRunAsync(
                         Windows.UI.Core.CoreDispatcherPriority.Normal,
                         () =>
                     {
                         ViewModel.SetState(json);
                     });
+
                 }
-                catch(JsonException je)
+                catch (JsonException je)
                 {
                     Debug.WriteLine(je);
                     stateFile.Delete();
