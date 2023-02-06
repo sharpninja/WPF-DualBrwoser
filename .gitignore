@@ -8,3 +8,13 @@ obj
 /DualBrowser
 /.version
 /CommonError2023-01-30.log
+BlankPage1.xaml.cs
+UserControl3.xaml.cs
+UserControl2.xaml.cs
+UserControl1.xaml.cs
+/src/StudyBrowser/Views/BrowserMenu1.xaml
+/src/StudyBrowser/Views/BrowserMenu1.xaml.cs
+/src/StudyBrowser/Views/AddressBar1.xaml.cs
+/src/StudyBrowser/Views/AddressBar1.xaml
+/src/StudyBrowser/Views/SideBar1.xaml
+/src/StudyBrowser/Views/SideBar1.xaml.cs

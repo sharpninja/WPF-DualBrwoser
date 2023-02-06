@@ -1,5 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 
+using DualBrowser.Models;
+
 namespace DualBrowser;
 
 public class HistoryEntryComparer :

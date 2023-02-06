@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "StudyBrowser (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "StudyBrowser (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

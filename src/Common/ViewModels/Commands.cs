@@ -119,8 +119,8 @@ public sealed partial class Commands
     {
         switch (side)
         {
-            case PRIMARY: _viewModel.Primary?.Reload(); break;
-            case SECONDARY: _viewModel.Secondary?.Reload(); break;
+            case PRIMARY: _viewModel?.Primary?.Reload(); break;
+            case SECONDARY: _viewModel?.Secondary?.Reload(); break;
         };
         return Task.CompletedTask;
     }

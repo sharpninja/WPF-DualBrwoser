@@ -1,15 +1,13 @@
-﻿using System.Security.Policy;
+﻿using Microsoft.Web.WebView2.Core;
 
-using Microsoft.Web.WebView2.Core;
-
-namespace DualBrowser;
+namespace DualBrowser.Models;
 
 public record struct HistoryEntry(DateTimeOffset Timestamp, string Uri, int StatusCode, string Status)
 {
     public HistoryEntry(string url, CoreWebView2NavigationCompletedEventArgs e) :
         this(DateTimeOffset.UtcNow,
             url,
-            e.HttpStatusCode,
+            0,
             e.WebErrorStatus.ToString())
     {
     }

@@ -1,0 +1,38 @@
+﻿<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
+
+<UserControl
+    x:Class="StudyBrowser.Views.SideBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:StudyBrowser.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:DualBrowser.Models"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TabView HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TabViewItem Header="History" IsSelected="True">
+                <ListView ItemsSource="{Binding ElementName=SideBarControl, Path=History, Mode=OneWay}" SelectedItem="{Binding ElementName=SideBarControl, Path=SelectedHistory, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:HistoryEntry">
+                            <TextBlock
+                                Margin="4,4,4,10"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+                                <Run FontSize="20" Text="{Binding Hostname, Mode=OneTime}" />
+                                <LineBreak />
+                                <Run FontSize="10" Text="{Binding Timestamp, Mode=OneTime}" />
+                                <Run FontSize="10" Text=" ‖ " />
+                                <Run FontSize="10" Text="{Binding StatusCode, Mode=OneTime}" />
+                                <Run FontSize="10" Text=" ‖ " />
+                                <Run FontSize="10" Text="{Binding Status, Mode=OneTime}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabViewItem>
+        </TabView>
+    </Grid>
+</UserControl>

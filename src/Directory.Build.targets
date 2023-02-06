@@ -1,0 +1,18 @@
+<Project ToolsVersion="15.0" >
+  <!--<Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'Microsoft.Web.WebView2.Core'">
+        <Aliases>webview2</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>-->
+  <Target Name="WriteReferenceForAlias" AfterTargets="AfterCompile">
+    <ItemGroup>
+      <ReferenceForAlias Include="@(ReferencePath)"
+                         Condition="'%(FileName)' == 'Microsoft.Web.WebView2.Core'" />
+    </ItemGroup>
+    <WriteLinesToFile File="$(TargetDir)/alias-references.txt"
+                      Lines="%(ReferenceForAlias.FullPath)"
+                      Overwrite="true" />
+  </Target>
+</Project>

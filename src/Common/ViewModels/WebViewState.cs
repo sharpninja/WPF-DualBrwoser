@@ -1,11 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Threading;
+﻿#pragma warning disable CS8603 // Possible null reference return.
+using DualBrowser.Models;
 using DualBrowser.Views;
-using Microsoft.Web.WebView2.Core;
 
-using Newtonsoft.Json;
-
-using WebView2 = Microsoft.Web.WebView2.Wpf.WebView2;
+using Microsoft.UI.Dispatching;
 
 namespace DualBrowser;
 
@@ -38,7 +35,7 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
 
     public void SetPosition()
     {
-        WebView.Dispatcher.Invoke(() =>
+        WebView.DispatcherQueue.TryEnqueue(() =>
         {
             (Column, ColumnSpan) = (_viewModel.IsSwapped, _viewModel.Mode, Position) switch
             {
@@ -73,7 +70,7 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
 
     public void GoBack()
     {
-        WebView.Dispatcher.Invoke(() =>
+        WebView.DispatcherQueue.TryEnqueue(() =>
         {
             WebView.GoBack();
         });
@@ -81,7 +78,7 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
 
     public void GoForward()
     {
-        WebView.Dispatcher.Invoke(() =>
+        WebView.DispatcherQueue.TryEnqueue(() =>
         {
             WebView.GoForward();
         });
@@ -89,7 +86,7 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
 
     public void Reload()
     {
-        WebView.Dispatcher.Invoke(() =>
+        WebView.DispatcherQueue.TryEnqueue(() =>
         {
             switch ((Position, _viewModel.Mode))
             {
@@ -117,7 +114,7 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
             return;
         }
 
-        WebView.Dispatcher.Invoke(() =>
+        WebView.DispatcherQueue.TryEnqueue(() =>
         {
             if (WebView.CoreWebView2 is null)
             {
@@ -159,10 +156,25 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
         };
     }
 
+    private bool GetCanGoBack() => WebView.CanGoBack;
+    private MethodInfo CanGoBackMethodInfo => GetType().GetMethod(
+        nameof(GetCanGoBack), BindingFlags.NonPublic);
+    private DispatcherQueueHandler CanGoBackHandler => (DispatcherQueueHandler)DispatcherQueueHandler.CreateDelegate(
+        typeof(DispatcherQueueHandler), CanGoBackMethodInfo);
+
+    private bool GetCanGoForward() => WebView.CanGoForward;
+    private MethodInfo CanGoForwardMethodInfo => GetType().GetMethod(nameof(GetCanGoForward), BindingFlags.NonPublic);
+    private DispatcherQueueHandler CanGoForwardHandler => (DispatcherQueueHandler)DispatcherQueueHandler.CreateDelegate(
+        typeof(DispatcherQueueHandler), CanGoForwardMethodInfo);
+
     [JsonIgnore]
-    public bool CanGoBack => WebView.Dispatcher.Invoke<bool>(() => WebView.CanGoBack);
+    public bool CanGoBack => Window.Current.DispatcherQueue.TryEnqueue(
+        DispatcherQueuePriority.Normal,
+        CanGoBackHandler);
     [JsonIgnore]
-    public bool CanGoForward => WebView.Dispatcher.Invoke<bool>(() => WebView.CanGoForward);
+    public bool CanGoForward => Window.Current.DispatcherQueue.TryEnqueue(
+        DispatcherQueuePriority.Normal,
+        CanGoForwardHandler);
 
     [JsonIgnore]
     public Border Border => _border;
@@ -224,3 +236,4 @@ public partial class WebViewState : ObservableObject, IWebViewStateView
     [JsonProperty]
     public Visibility SideBarVisibility { get => _sideBarVisibility; set => SetProperty(ref _sideBarVisibility, value); }
 }
+#pragma warning restore CS8603 // Possible null reference return.

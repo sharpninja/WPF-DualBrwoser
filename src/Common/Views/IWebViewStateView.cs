@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-using Microsoft.Web.WebView2.Wpf;
+using DualBrowser.Models;
 
 namespace DualBrowser.Views;
 

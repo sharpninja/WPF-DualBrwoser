@@ -1,12 +1,6 @@
-﻿using System.CodeDom;
-using System.Collections;
-using System.Diagnostics;
-using System.Reflection;
+﻿using System.Collections;
 
 using DualBrowser.ViewModels;
-
-using Syncfusion.Data.Extensions;
-using Syncfusion.Windows.Shared;
 
 namespace SfDualBrowserWpf;
 

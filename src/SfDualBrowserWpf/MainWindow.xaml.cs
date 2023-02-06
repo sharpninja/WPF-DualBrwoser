@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
+﻿using System.Diagnostics;
 
 using DualBrowser.ViewModels;
-using Microsoft.Web.WebView2.Wpf;
-using Syncfusion.Windows.Shared;
+
 using SizeMode = Syncfusion.SfSkinManager.SizeMode;
 
 namespace SfDualBrowserWpf;

@@ -1,15 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Text.Json.Serialization;
-using System.Windows.Input;
+﻿using System.ComponentModel;
+
 using DualBrowser.ViewModels;
-using Microsoft.Web.WebView2.WinForms;
-using Microsoft.Web.WebView2.Wpf;
+
+using Microsoft.UI.Xaml;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
-using WebView2 = Microsoft.Web.WebView2.Wpf.WebView2;
 
 namespace DualBrowser;
 
@@ -132,7 +128,7 @@ public sealed partial class MainViewModel : ObservableObject
     {
         if (Mode is Modes.Synced && Secondary.Uri != Primary.Uri)
         {
-            Secondary.WebView.CoreWebView2.Navigate(Primary.Uri);
+            Secondary.Navigate(Primary.Uri);
         }
     }
 
